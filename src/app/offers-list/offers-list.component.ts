@@ -1,21 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { OfferComponent } from '../offer/offer.component';
-import { NgFor } from '@angular/common';
-import { Offer } from '../offer.interface';
-import { OfferService } from '../offer.service';
+import { Component, OnInit } from '@angular/core'
+import { OfferComponent } from '../offer/offer.component'
+import { NgFor } from '@angular/common'
+import { Offer } from '../offer.interface'
+import { OfferService } from '../offer.service'
 
 @Component({
   selector: 'app-offers-list',
   standalone: true,
-  imports: [
-    OfferComponent,
-    NgFor,
-  ],
+  imports: [OfferComponent, NgFor],
   templateUrl: './offers-list.component.html',
-  styleUrl: './offers-list.component.css'
+  styleUrl: './offers-list.component.css',
 })
 export class OffersListComponent implements OnInit {
-  offers: Offer[] = [];
+  offers: Offer[] = []
 
   constructor(private offerService: OfferService) {}
 
@@ -24,6 +21,6 @@ export class OffersListComponent implements OnInit {
     // this.offerService.getOffers().subscribe((offers) => {
     //   this.offers = offers;
     // });
-    this.offers = this.offerService.getOffers();
+    this.offers = this.offerService.getOffers()
   }
 }
