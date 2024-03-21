@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { LoginType } from '../../libs/types/src'
+import { LoginRequestType } from '../../libs/types/src'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string) {
-    return this.http.post<LoginType>('/api/login', { email, password })
+    return this.http.post<LoginRequestType>('/api/login', { email, password })
   }
 
   private setSession(authResult: any) {
