@@ -10,5 +10,5 @@ import { NavbarComponent } from './navbar/navbar.component'
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'Airbmb | Vacation rentals, cabins, beach houses, & more'
+  title = 'Errbmb | Vacation rentals, cabins, beach houses, & more'
 }
