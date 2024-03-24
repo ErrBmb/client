@@ -7,7 +7,6 @@ import { Offer } from '../offer.interface'
   standalone: true,
   imports: [RouterLink],
   templateUrl: './offer.component.html',
-  styleUrl: './offer.component.css',
 })
 export class OfferComponent {
   @Input() offer!: Offer

@@ -9,7 +9,6 @@ import { OfferService } from '../offer.service'
   standalone: true,
   imports: [OfferComponent, NgFor],
   templateUrl: './offers-list.component.html',
-  styleUrl: './offers-list.component.css',
 })
 export class OffersListComponent implements OnInit {
   offers: Offer[] = []
