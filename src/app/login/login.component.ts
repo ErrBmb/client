@@ -22,12 +22,6 @@ export class LoginComponent {
   })
 
   onSubmit() {
-    console.log(
-      'form is ' +
-        this.userForm.value.email +
-        ', ' +
-        this.userForm.value.password,
-    )
     let email = this.userForm.value.email || ''
     let password = this.userForm.value.password || ''
     this.authService.login(email, password).subscribe(() => {

@@ -12,6 +12,24 @@ export class AuthService {
     return this.http.post<LoginRequestType>('/api/login', { email, password })
   }
 
+  signup(
+    last_name: string,
+    first_name: string,
+    birth_date: string,
+    phone: string,
+    email: string,
+    password: string,
+  ) {
+    return this.http.post<LoginRequestType>('/api/signup', {
+      last_name,
+      first_name,
+      birth_date,
+      phone,
+      email,
+      password,
+    })
+  }
+
   private setSession(authResult: LoginResponseType) {
     // TODO
     console.log('Received auth token: ' + authResult.token)
