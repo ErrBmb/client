@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { LoginRequestType } from '../../libs/types/src'
+import { LoginRequestType, LoginResponseType } from '../../libs/types/user'
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +12,8 @@ export class AuthService {
     return this.http.post<LoginRequestType>('/api/login', { email, password })
   }
 
-  private setSession(authResult: any) {
+  private setSession(authResult: LoginResponseType) {
     // TODO
-    console.log(authResult.idToken)
+    console.log('Received auth token: ' + authResult.token)
   }
 }
