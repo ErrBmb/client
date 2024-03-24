@@ -3,7 +3,7 @@
     Connexion<span class="text-rose-500">.</span>
   </h1>
 
-  <div class="w-screen md:w-3/4 lg:w-1/2 xl:w-1/3 mx-auto">
+  <div class="w-screen max-w-screen-sm mx-auto">
     <div class="flex flex-col">
       <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
@@ -33,14 +33,17 @@
             />
           </div>
 
-          <div class="mt-6 grid w-full grid-cols-2 space-x-4">
+          <div
+            class="mt-5 grid grid-cols-1 md:gap-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
+          >
             <a
-              class="text-center cursor-pointer rounded-lg bg-gray-200 px-8 py-2 font-medium text-gray-700 outline-none hover:opacity-80 focus:ring"
+              class="mt-5 text-center cursor-pointer rounded-lg bg-gray-200 px-8 py-2 font-medium text-gray-700 outline-none hover:opacity-80 focus:ring"
               routerLink="/signup"
               >Créer un compte</a
             >
+
             <button
-              class="rounded-lg bg-rose-500 px-8 py-2 font-medium text-white outline-none hover:opacity-80 focus:ring"
+              class="mt-5 rounded-lg bg-rose-500 px-8 py-2 font-medium text-white outline-none hover:opacity-80 focus:ring"
             >
               Se connecter
             </button>
