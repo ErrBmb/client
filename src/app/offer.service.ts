@@ -54,6 +54,42 @@ export class OfferService {
         imageUrl:
           'https://cdn.pixabay.com/photo/2017/02/07/18/16/living-room-2046668_960_720.jpg',
       },
+      {
+        id: 4,
+        checkIn: new Date('04-13-2024'),
+        checkOut: new Date('04-15-2024'),
+        city: 'Montpellier',
+        price: 432,
+        rooms: 2,
+        beds: 7,
+        distance: 68,
+        imageUrl:
+          'https://cdn.pixabay.com/photo/2016/11/19/13/06/bed-1839183_960_720.jpg',
+      },
+      {
+        id: 5,
+        checkIn: new Date('04-13-2024'),
+        checkOut: new Date('04-15-2024'),
+        city: 'Montpellier',
+        price: 139,
+        rooms: 3,
+        beds: 3,
+        distance: 237,
+        imageUrl:
+          'https://cdn.pixabay.com/photo/2020/11/24/11/36/bedroom-5772286_960_720.jpg',
+      },
+      {
+        id: 6,
+        checkIn: new Date('04-13-2024'),
+        checkOut: new Date('04-15-2024'),
+        city: 'Montpellier',
+        price: 869,
+        rooms: 1,
+        beds: 9,
+        distance: 491,
+        imageUrl:
+          'https://cdn.pixabay.com/photo/2016/12/30/07/55/bedroom-1940168_960_720.jpg',
+      },
     ]
     return offersMock
   }
