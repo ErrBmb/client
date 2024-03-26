@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router'
 import { Offer } from '../offer.interface'
 
 @Component({
-  selector: 'app-offer',
+  selector: 'app-offer-item',
   standalone: true,
   imports: [RouterLink],
   templateUrl: './offer-item.component.html',

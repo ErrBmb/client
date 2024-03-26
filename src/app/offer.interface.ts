@@ -8,4 +8,5 @@ export interface Offer {
   beds: number
   distance: number
   imageUrl: string
+  stars: number
 }
