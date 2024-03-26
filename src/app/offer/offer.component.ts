@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Offer } from '../offer.interface'
 import { OfferService } from '../offer.service'
 import { NgFor } from '@angular/common'
@@ -20,6 +20,7 @@ export class OfferComponent implements OnInit {
     private offerService: OfferService,
     private commentService: CommentService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -27,7 +28,9 @@ export class OfferComponent implements OnInit {
       let id = +params['id']
       this.offer = this.offerService.getOfferById(id)
       this.comments = this.commentService.getCommentsByOfferId(id)
-      console.log(this.comments)
+      if (this.offer == null) {
+        this.router.navigateByUrl('/404')
+      }
     })
   }
 
