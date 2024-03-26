@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { OfferComponent } from '../offer/offer.component'
+import { OfferItemComponent } from '../offer-item/offer-item.component'
 import { NgFor } from '@angular/common'
 import { Offer } from '../offer.interface'
 import { OfferService } from '../offer.service'
@@ -7,7 +7,7 @@ import { OfferService } from '../offer.service'
 @Component({
   selector: 'app-offers-list',
   standalone: true,
-  imports: [OfferComponent, NgFor],
+  imports: [OfferItemComponent, NgFor],
   templateUrl: './offers-list.component.html',
 })
 export class OffersListComponent implements OnInit {
@@ -16,7 +16,7 @@ export class OffersListComponent implements OnInit {
   constructor(private offerService: OfferService) {}
 
   ngOnInit(): void {
-    // TODO
+    // TODO: fetch service to get only the matching offers
     // this.offerService.getOffers().subscribe((offers) => {
     //   this.offers = offers;
     // });

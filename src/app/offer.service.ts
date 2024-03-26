@@ -20,8 +20,8 @@ export class OfferService {
     let offersMock: Offer[] = [
       {
         id: 1,
-        checkIn: new Date('13/04/2024'),
-        checkOut: new Date('15/04/2024'),
+        checkIn: new Date('04-13-2024'),
+        checkOut: new Date('04-15-2024'),
         city: 'Montpellier',
         price: 650,
         rooms: 1,
@@ -32,8 +32,8 @@ export class OfferService {
       },
       {
         id: 2,
-        checkIn: new Date('11/04/2024'),
-        checkOut: new Date('19/04/2024'),
+        checkIn: new Date('04-11-2024'),
+        checkOut: new Date('04-19-2024'),
         city: 'Montpellier',
         price: 1230,
         rooms: 2,
@@ -44,8 +44,8 @@ export class OfferService {
       },
       {
         id: 3,
-        checkIn: new Date('13/04/2024'),
-        checkOut: new Date('15/04/2024'),
+        checkIn: new Date('04-13-2024'),
+        checkOut: new Date('04-15-2024'),
         city: 'Montpellier',
         price: 230,
         rooms: 1,
