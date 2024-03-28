@@ -21,7 +21,10 @@ export class OfferComponent implements OnInit {
     private commentService: CommentService,
     private route: ActivatedRoute,
     private router: Router,
-  ) {}
+    private window: Window,
+  ) {
+    window.scrollTo(0, 0)
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {

@@ -20,5 +20,6 @@ export const appConfig: ApplicationConfig = {
       useClass: ApiInterceptor,
       multi: true,
     },
+    { provide: Window, useValue: window },
   ],
 }
