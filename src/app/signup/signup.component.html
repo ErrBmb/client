@@ -11,9 +11,9 @@
             class="mb-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
           >
             <div class="flex flex-col">
-              <label for="email" class="text-sm font-medium text-stone-600"
-                >Nom</label
-              >
+              <label for="email" class="text-sm font-medium text-stone-600">
+                Nom
+              </label>
               <input
                 type="text"
                 id="last_name"
@@ -24,9 +24,9 @@
             </div>
 
             <div class="flex flex-col">
-              <label for="email" class="text-sm font-medium text-stone-600"
-                >Prénom</label
-              >
+              <label for="email" class="text-sm font-medium text-stone-600">
+                Prénom
+              </label>
               <input
                 type="text"
                 id="first_name"
@@ -41,9 +41,12 @@
             class="mb-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
           >
             <div class="flex flex-col">
-              <label for="birth_date" class="text-sm font-medium text-stone-600"
-                >Date de naissance</label
+              <label
+                for="birth_date"
+                class="text-sm font-medium text-stone-600"
               >
+                Date de naissance
+              </label>
               <input
                 type="date"
                 id="birth_date"
@@ -53,9 +56,9 @@
             </div>
 
             <div class="flex flex-col">
-              <label for="phone" class="text-sm font-medium text-stone-600"
-                >Téléphone</label
-              >
+              <label for="phone" class="text-sm font-medium text-stone-600">
+                Téléphone
+              </label>
               <input
                 type="tel"
                 id="phone"
@@ -70,9 +73,9 @@
             class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
           >
             <div class="flex flex-col">
-              <label for="email" class="text-sm font-medium text-stone-600"
-                >Adresse mail</label
-              >
+              <label for="email" class="text-sm font-medium text-stone-600">
+                Adresse mail
+              </label>
               <input
                 type="email"
                 id="email"
@@ -83,9 +86,9 @@
             </div>
 
             <div class="flex flex-col">
-              <label for="password" class="text-sm font-medium text-stone-600"
-                >Mot de passe</label
-              >
+              <label for="password" class="text-sm font-medium text-stone-600">
+                Mot de passe
+              </label>
               <input
                 type="password"
                 id="password"
@@ -95,15 +98,50 @@
               />
             </div>
           </div>
-
+          <div class="mt-5">
+            <label for="geo" class="text-sm font-medium text-stone-600">
+              Géolocalisation
+            </label>
+            <div class="">
+              <mgl-map
+                id="geo"
+                class="mt-2 w-full h-full"
+                [style]="'mapbox://styles/mapbox/streets-v12'"
+                [zoom]="[9]"
+                [center]="[2.3488, 48.85341]"
+                [attributionControl]="false"
+                [projection]="{ name: 'mercator' }"
+              >
+                <mgl-geojson-source id="point">
+                  <mgl-feature
+                    [properties]=""
+                    [geometry]="markerPosition"
+                    [mglDraggable]="targetLayer"
+                    (featureDrag)="onMarkerDrag($event)"
+                  ></mgl-feature>
+                </mgl-geojson-source>
+                <mgl-layer
+                  #targetLayer
+                  id="point"
+                  type="circle"
+                  source="point"
+                  [paint]="{
+                    'circle-radius': 10,
+                    'circle-color': '#F33F5D'
+                  }"
+                ></mgl-layer>
+              </mgl-map>
+            </div>
+          </div>
           <div
             class="mt-5 grid grid-cols-1 md:gap-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
           >
             <a
               class="mt-5 text-center cursor-pointer rounded-lg bg-gray-200 px-8 py-2 font-medium text-gray-700 outline-none hover:opacity-80 focus:ring"
               routerLink="/login"
-              >Se connecter</a
             >
+              Se connecter
+            </a>
 
             <button
               class="mt-5 rounded-lg bg-rose-500 px-8 py-2 font-medium text-white outline-none hover:opacity-80 focus:ring"
