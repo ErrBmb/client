@@ -1,27 +1,28 @@
 # Client
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2.
+An Angular client for an Airbnb clone.
+
+## Pull external libraries
+
+You will need to pull the GIT submodule [Errbmb/types](https://github.com/ErrBmb/types) into the directory `/libs/types` with `git submodule update --init --recursive`.
+
+## Installation
+
+Run `npm i` to install all dependencies. You will need to patch the `ngx-mapbox-gl` dependency by commenting the following lines:
+
+```ts
+// File: /node_modules/ngx-mapbox-gl/fesm2022/ngx-mapbox-gl.mjs
+// Lines: 33 to 35
+
+if (options.customMapboxApiUrl) {
+  MapboxGl.baseApiUrl = options.customMapboxApiUrl
+}
+```
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
