@@ -1,8 +1,8 @@
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { Router, RouterLink } from '@angular/router'
 import { AuthService } from '../auth.service'
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl'
+import { FeatureComponent, NgxMapboxGLModule } from 'ngx-mapbox-gl'
 import { MapMouseEvent } from 'mapbox-gl'
 
 @Component({
@@ -12,7 +12,10 @@ import { MapMouseEvent } from 'mapbox-gl'
   templateUrl: './signup.component.html',
 })
 export class SignupComponent {
-  markerPosition: GeoJSON.Point = {
+  @ViewChild('markerFeature', { static: false })
+  markerFeature?: FeatureComponent
+
+  marker: GeoJSON.Point = {
     type: 'Point',
     coordinates: [2.3488, 48.85341],
   }
@@ -48,7 +51,11 @@ export class SignupComponent {
   }
 
   onMarkerDrag(event: MapMouseEvent) {
-    console.log('onDrag', event)
-    this.markerPosition.coordinates = event.lngLat.toArray()
+    this.marker.coordinates = event.lngLat.toArray()
+  }
+
+  onMapClick(event: MapMouseEvent) {
+    this.marker.coordinates = event.lngLat.toArray()
+    this.markerFeature!.updateCoordinates(this.marker.coordinates)
   }
 }

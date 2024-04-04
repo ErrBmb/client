@@ -102,7 +102,7 @@
             <label for="geo" class="text-sm font-medium text-stone-600">
               Géolocalisation
             </label>
-            <div class="">
+            <div>
               <mgl-map
                 id="geo"
                 class="mt-2 w-full h-full"
@@ -111,11 +111,13 @@
                 [center]="[2.3488, 48.85341]"
                 [attributionControl]="false"
                 [projection]="{ name: 'mercator' }"
+                (mapClick)="onMapClick($event)"
               >
                 <mgl-geojson-source id="point">
                   <mgl-feature
+                    #markerFeature
                     [properties]=""
-                    [geometry]="markerPosition"
+                    [geometry]="marker"
                     [mglDraggable]="targetLayer"
                     (featureDrag)="onMarkerDrag($event)"
                   ></mgl-feature>
