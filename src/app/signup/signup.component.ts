@@ -41,12 +41,16 @@ export class SignupComponent {
     let phone = this.userForm.value.phone || ''
     let email = this.userForm.value.email || ''
     let password = this.userForm.value.password || ''
-    console.log(lastName + firstName + birthDate + phone + email + password)
+    let location = this.marker
     this.authService
-      .signup(lastName, firstName, birthDate, phone, email, password)
-      .subscribe(() => {
-        console.log('Account created')
-        this.router.navigateByUrl('/')
+      .signup(lastName, firstName, birthDate, phone, email, password, location)
+      .subscribe({
+        complete: () => {
+          this.router.navigateByUrl('/')
+        },
+        error: (e: Error) => {
+          // TODO: handle error
+        },
       })
   }
 

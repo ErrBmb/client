@@ -23,9 +23,14 @@ export class LoginComponent {
   onSubmit() {
     let email = this.userForm.value.email || ''
     let password = this.userForm.value.password || ''
-    this.authService.login(email, password).subscribe(() => {
-      console.log('User is logged in')
-      this.router.navigateByUrl('/')
+    this.authService.login(email, password).subscribe({
+      complete: () => {
+        console.info('User is logged in')
+        this.router.navigateByUrl('/')
+      },
+      error: (e: Error) => {
+        // TODO: handle error
+      },
     })
   }
 }
