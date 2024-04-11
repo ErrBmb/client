@@ -45,35 +45,31 @@
       class="peer-checked:block hidden pl-2 py-6 sm:block sm:py-0"
     >
       <ul class="flex flex-col gap-y-4 sm:flex-row sm:gap-x-8">
-        <li>
+        <li class="flex items-center">
           <a class="text-gray-600 hover:text-rose-500" routerLink="/">
             Logements
           </a>
         </li>
-        <div *ngIf="loggedIn | async">
-          <li>
-            <a class="text-gray-600 hover:text-rose-500" routerLink="/profile">
-              Mon profil
-            </a>
-          </li>
-        </div>
+        <li *ngIf="loggedIn | async" class="flex items-center">
+          <a class="text-gray-600 hover:text-rose-500" routerLink="/profile">
+            Mon profil
+          </a>
+        </li>
         <li class="mt-2 sm:mt-0">
-          <div *ngIf="loggedIn | async">
-            <a
-              class="rounded-xl border-2 border-rose-500 px-6 py-2 font-medium text-rose-500 hover:bg-rose-500 hover:text-white transition-all"
-              routerLink="/logout"
-            >
-              Déconnexion
-            </a>
-          </div>
-          <div *ngIf="!(loggedIn | async)">
-            <a
-              class="rounded-xl border-2 border-rose-500 px-6 py-2 font-medium text-rose-500 hover:bg-rose-500 hover:text-white transition-all"
-              routerLink="/login"
-            >
-              Connexion
-            </a>
-          </div>
+          <a
+            *ngIf="loggedIn | async"
+            class="border-2 border-rose-500 text-rose-500 hover:bg-rose-500 hover:text-white focus:ring focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center transition"
+            routerLink="/logout"
+          >
+            Déconnexion
+          </a>
+          <a
+            *ngIf="!(loggedIn | async)"
+            class="border-2 border-rose-500 text-rose-500 hover:bg-rose-500 hover:text-white focus:ring focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center transition"
+            routerLink="/login"
+          >
+            Connexion
+          </a>
         </li>
       </ul>
     </nav>
