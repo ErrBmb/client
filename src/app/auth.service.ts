@@ -1,14 +1,26 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { LoginRequestType, LoginResponseType } from '../../libs/types/user'
+import {
+  LoginRequestType,
+  LoginResponseType,
+  UserType,
+} from '../../libs/types/user'
 import { Point } from 'geojson'
-import { catchError, tap, throwError } from 'rxjs'
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs'
+import { CookieService } from 'ngx-cookie-service'
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  private loggedIn: BehaviorSubject<boolean>
+
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService,
+  ) {
+    this.loggedIn = new BehaviorSubject(cookieService.check('auth-token'))
+  }
 
   login(mail: string, password: string) {
     return this.http
@@ -18,6 +30,7 @@ export class AuthService {
       } as LoginRequestType)
       .pipe(
         tap((response: LoginResponseType) => {
+          console.info('Logged in')
           this.setSession(response.token)
         }),
         catchError((e: Error) => {
@@ -58,8 +71,31 @@ export class AuthService {
       )
   }
 
-  private setSession(token: String) {
-    // TODO: store token
+  logout() {
+    console.info('Logging out')
+    this.cookieService.delete('auth-token')
+    this.loggedIn.next(false)
+  }
+
+  private setSession(token: string) {
     console.log('Received auth token: ' + token)
+    this.cookieService.set('auth-token', token)
+    this.loggedIn.next(true)
+  }
+
+  getUser(): Observable<UserType> {
+    return this.http.get<UserType>('/user/personal-info').pipe(
+      tap((response: UserType) => {
+        console.info('User info retrieved')
+      }),
+      catchError((e: Error) => {
+        console.error('An error has occured: ' + e.message)
+        return throwError(() => e)
+      }),
+    )
+  }
+
+  isLoggedIn(): Observable<boolean> {
+    return this.loggedIn.asObservable()
   }
 }

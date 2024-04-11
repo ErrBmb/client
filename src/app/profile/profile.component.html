@@ -1,0 +1,7 @@
+<h1>Votre profil</h1>
+
+<p>Prénom : {{ (user | async)?.first_name }}</p>
+<p>Nom : {{ (user | async)?.last_name }}</p>
+<p>Email: {{ (user | async)?.mail }}</p>
+<p>Téléphone : {{ (user | async)?.phone_number }}</p>
+<p>Position : {{ (user | async)?.location?.coordinates }}</p>

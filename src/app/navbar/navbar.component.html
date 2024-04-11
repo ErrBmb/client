@@ -19,7 +19,7 @@
           />
         </svg>
       </span>
-      <span>Errbmb</span>
+      <span>ErrBmb</span>
     </a>
     <input class="peer hidden" type="checkbox" id="navbar-open" />
     <label
@@ -50,13 +50,30 @@
             Logements
           </a>
         </li>
+        <div *ngIf="loggedIn | async">
+          <li>
+            <a class="text-gray-600 hover:text-rose-500" routerLink="/profile">
+              Mon profil
+            </a>
+          </li>
+        </div>
         <li class="mt-2 sm:mt-0">
-          <a
-            class="rounded-xl border-2 border-rose-500 px-6 py-2 font-medium text-rose-500 hover:bg-rose-500 hover:text-white transition-all"
-            routerLink="/login"
-          >
-            Connexion
-          </a>
+          <div *ngIf="loggedIn | async">
+            <a
+              class="rounded-xl border-2 border-rose-500 px-6 py-2 font-medium text-rose-500 hover:bg-rose-500 hover:text-white transition-all"
+              routerLink="/logout"
+            >
+              Déconnexion
+            </a>
+          </div>
+          <div *ngIf="!(loggedIn | async)">
+            <a
+              class="rounded-xl border-2 border-rose-500 px-6 py-2 font-medium text-rose-500 hover:bg-rose-500 hover:text-white transition-all"
+              routerLink="/login"
+            >
+              Connexion
+            </a>
+          </div>
         </li>
       </ul>
     </nav>
