@@ -19,6 +19,20 @@ if (options.customMapboxApiUrl) {
 }
 ```
 
+You will also need to create the environments files with the following command:
+
+```sh
+$ ng generate environments
+```
+
+And set the following environment variables in both `environment.development.ts` and `environment.ts`:
+
+```ts
+export const environment = {
+  MAPBOX_TOKEN: "<Your MapBox Token>",
+}
+```
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
