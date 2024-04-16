@@ -1,15 +1,14 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+import { Observable, catchError, tap, throwError } from 'rxjs'
 import { Offer } from './offer.interface'
 import { Comment } from './comment.interface'
+import { ReviewType } from '../../libs/types/review'
 
 @Injectable({
   providedIn: 'root',
 })
-export class CommentService {
-  private baseUrl = '' // TODO
-
+export class ReviewService {
   commentsMock: Comment[] = [
     {
       id: 1,
@@ -78,13 +77,21 @@ export class CommentService {
 
   constructor(private http: HttpClient) {}
 
-  // TODO
-  // getCommentsByOfferId(): Observable<Comment[]> {
-  //   return this.http.get<Comment[]>(`${this.baseUrl}/comments`);
-  // }
-
-  getCommentsByOfferId(id: number): Offer[] | any {
+  getCommentsMockByLocationId(id: number): Offer[] | any {
     let comments = this.commentsMock.filter((c) => c.offerId == id)
     return comments
+  }
+
+  getReviewsByLocationId(id: string): Observable<Array<ReviewType>> {
+    return this.http.get<Array<ReviewType>>('/offers/' + id + '/reviews').pipe(
+      tap((response: Array<ReviewType>) => {
+        console.info('Reviews found for location #' + id)
+        console.info(response)
+      }),
+      catchError((e: Error) => {
+        console.error('An error has occured: ' + e.message)
+        return throwError(() => e)
+      }),
+    )
   }
 }

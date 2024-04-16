@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+import { Observable, catchError, tap, throwError } from 'rxjs'
 import { Offer } from './offer.interface'
+import { OfferType, ResearchType } from '../../libs/types/research'
+import { LocationType } from '../../libs/types/location'
 
 @Injectable({
   providedIn: 'root',
 })
-export class OfferService {
-  private baseUrl = '' // TODO
-
+export class LocationService {
   offersMock: Offer[] = [
     {
       id: 1,
@@ -92,17 +92,67 @@ export class OfferService {
 
   constructor(private http: HttpClient) {}
 
-  // TODO
-  // getOffers(): Observable<Offer[]> {
-  //   return this.http.get<Offer[]>(`${this.baseUrl}/offers`);
+  // getOffersMock(): Offer[] {
+  //   return this.offersMock
   // }
 
-  getOffers(): Offer[] {
-    return this.offersMock
+  getLocationMockById(id: number): Offer | any {
+    let location = this.offersMock.find((o) => o.id == id)
+    return location
   }
 
-  getOfferById(id: number): Offer | any {
-    let offer = this.offersMock.find((o) => o.id == id)
-    return offer
+  getLocationById(id: string): Observable<LocationType> {
+    return this.http.get<LocationType>('/location/' + id).pipe(
+      tap((response: LocationType) => {
+        console.info('Location #' + id + ' found')
+        console.info(response)
+      }),
+      catchError((e: Error) => {
+        console.error('An error has occured: ' + e.message)
+        return throwError(() => e)
+      }),
+    )
+  }
+
+  getLocations(): Observable<Array<LocationType>> {
+    return this.http.get<Array<LocationType>>('/locations').pipe(
+      tap((response: Array<LocationType>) => {
+        console.info('Locations found (all)')
+        console.info(response)
+      }),
+      catchError((e: Error) => {
+        console.error('An error has occured: ' + e.message)
+        return throwError(() => e)
+      }),
+    )
+  }
+
+  search(
+    place: string,
+    checkIn: Date,
+    checkOut: Date,
+    bedrooms: number,
+    beds: number,
+    distance: number,
+  ): Observable<Array<OfferType>> {
+    return this.http
+      .post<Array<OfferType>>('/search', {
+        place,
+        checkIn,
+        checkOut,
+        bedrooms,
+        beds,
+        distance,
+      } as ResearchType)
+      .pipe(
+        tap((response: Array<OfferType>) => {
+          console.info('Offers found (search)')
+          console.info(response)
+        }),
+        catchError((e: Error) => {
+          console.error('An error has occured: ' + e.message)
+          return throwError(() => e)
+        }),
+      )
   }
 }

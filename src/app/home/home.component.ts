@@ -1,24 +1,24 @@
 import { Component } from '@angular/core'
-import { OfferItemComponent } from '../offer-item/offer-item.component'
-import { NgFor } from '@angular/common'
-import { Offer } from '../offer.interface'
-import { OfferService } from '../offer.service'
-import { Router } from '@angular/router'
+import { OfferItemComponent } from '../location-item/location-item.component'
+import { AsyncPipe, NgFor, NgIf } from '@angular/common'
+import { LocationService } from '../location.service'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { Observable, catchError, throwError } from 'rxjs'
+import { OfferType } from '../../../libs/types/research'
+import { LocationType } from '../../../libs/types/location'
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [OfferItemComponent, NgFor, ReactiveFormsModule],
+  imports: [OfferItemComponent, NgFor, NgIf, ReactiveFormsModule, AsyncPipe],
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
-  offers: Offer[] = []
+  locations: Observable<Array<LocationType>>
 
-  constructor(
-    private offerService: OfferService,
-    private router: Router,
-  ) {}
+  constructor(private locationService: LocationService) {
+    this.locations = this.locationService.getLocations()
+  }
 
   searchForm = new FormGroup({
     city: new FormControl(''),
@@ -31,29 +31,44 @@ export class HomeComponent {
   })
 
   onSubmit() {
-    let city = this.searchForm.value.city || ''
-    let checkIn = this.searchForm.value.checkIn || ''
-    let checkOut = this.searchForm.value.checkOut || ''
-    let maxPrice = this.searchForm.value.maxPrice || ''
-    let minRooms = this.searchForm.value.minRooms || ''
-    let minBeds = this.searchForm.value.minBeds || ''
-    let maxDistance = this.searchForm.value.maxDistance || ''
-    // TODO: fetch service to get only the matching offers and update the offers list
-    // this.offerService
-    //   .search(city, checkIn, checkOut, maxPrice, minRooms, minBeds, maxDistance)
-    //   .subscribe((offers) => {
-    //     console.log('Offers search done')
-    //
-    //     this.offers = offers
-    //   })
-    this.offers = this.offerService.getOffers()
-  }
-
-  ngOnInit(): void {
-    // TODO: fetch service to get all offers
-    // this.offerService.getOffers().subscribe((offers) => {
-    //   this.offers = offers;
-    // });
-    this.offers = this.offerService.getOffers()
+    // let city = this.searchForm.value.city || ''
+    // if (city == '') {
+    //   // TODO: handle error
+    //   return
+    // }
+    // let checkInStr = this.searchForm.value.checkIn || ''
+    // if (checkInStr == '') {
+    //   // TODO: handle error
+    //   return
+    // }
+    // let checkIn = new Date(checkInStr)
+    // let checkOutStr = this.searchForm.value.checkOut || ''
+    // if (checkOutStr == '') {
+    //   // TODO: handle error
+    //   return
+    // }
+    // let checkOut = new Date(checkOutStr)
+    // let maxPrice = parseInt(this.searchForm.value.maxPrice || '-1')
+    // let minRooms = parseInt(this.searchForm.value.minRooms || '1')
+    // let minBeds = parseInt(this.searchForm.value.minBeds || '1')
+    // let maxDistance = parseInt(this.searchForm.value.maxDistance || '10000')
+    // console.log(
+    //   'Search: ' +
+    //     city +
+    //     checkIn +
+    //     checkOut +
+    //     maxPrice +
+    //     minRooms +
+    //     minBeds +
+    //     maxDistance,
+    // )
+    // this.locations = this.locationService
+    //   .search(city, checkIn, checkOut, minRooms, minBeds, maxDistance)
+    //   .pipe(
+    //     catchError((e: Error) => {
+    //       // TODO: handle error
+    //       return throwError(() => e)
+    //     }),
+    //   )
   }
 }
