@@ -69,12 +69,13 @@
             </li>
             <!-- TODO: Vérifier la disponibilité du bien entre les dates -->
             <li *ngIf="checkIn && checkOut">
-              Disponible/Indisponible du {{ checkIn.toLocaleDateString() }} au
-              {{ checkOut.toLocaleDateString() }}
+              Disponible/Indisponible du {{ localeDateString(checkIn) }} au
+              {{ localeDateString(checkOut) }}
             </li>
           </ul>
         </div>
         <button
+          *ngIf="loggedIn | async"
           type="button"
           class="mt-5 text-white bg-rose-500 hover:bg-rose-400 focus:ring focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
         >
@@ -94,6 +95,46 @@
           </svg>
           Réserver maintenant
         </button>
+        <button
+          *ngIf="!(loggedIn | async)"
+          type="button"
+          class="mt-5 text-white bg-rose-500 hover:bg-rose-400 focus:ring focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+          routerLink="/login"
+        >
+          Connectez-vous pour réserver
+        </button>
+        <div class="mt-8">
+          <h3 class="text-lg font-bold text-gray-800">Géolocalisation</h3>
+          <div>
+            <mgl-map
+              id="geo"
+              class="mt-2 w-full h-full"
+              [style]="'mapbox://styles/mapbox/streets-v12'"
+              [zoom]="[9]"
+              [center]="[marker.coordinates[0], marker.coordinates[1]]"
+              [attributionControl]="false"
+              [projection]="{ name: 'mercator' }"
+            >
+              <mgl-geojson-source id="point">
+                <mgl-feature
+                  #markerFeature
+                  [properties]=""
+                  [geometry]="marker"
+                ></mgl-feature>
+              </mgl-geojson-source>
+              <mgl-layer
+                #targetLayer
+                id="point"
+                type="circle"
+                source="point"
+                [paint]="{
+                  'circle-radius': 10,
+                  'circle-color': '#F33F5D'
+                }"
+              ></mgl-layer>
+            </mgl-map>
+          </div>
+        </div>
         <div class="mt-8">
           <h3 *ngIf="this.reviews" class="text-lg font-bold text-gray-800">
             Avis ({{ this.reviews.length }})
