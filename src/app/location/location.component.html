@@ -164,10 +164,10 @@
           <h3 *ngIf="this.reviews" class="text-lg font-bold text-gray-800">
             Avis ({{ this.reviews.length }})
           </h3>
-          <h3 *ngIf="!this.reviews" class="text-lg font-bold text-gray-800">
-            Avis (0)
-          </h3>
-          <div *ngIf="!this.reviews" class="flex space-x-2 mt-4 text-slate-500">
+          <div
+            *ngIf="this.reviews && this.reviews.length == 0"
+            class="flex space-x-2 mt-4 text-slate-500"
+          >
             Pas encore d'avis
           </div>
           <div class="flex items-start mt-8" *ngFor="let review of reviews">

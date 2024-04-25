@@ -88,7 +88,7 @@ export class LocationComponent implements OnInit {
   }
 
   sumBeds(bedrooms: Array<BedroomType>): number {
-    return bedrooms.reduce((acc, val) => acc + val.total_capacity, 0)
+    return bedrooms.reduce((acc, val) => acc + val.beds.length, 0)
   }
 
   localeDateString(date: string) {
