@@ -69,10 +69,8 @@
             </li>
             <li *ngIf="!(checkIn || checkOut)">
               Sélectionnez les dates pour votre séjour
-              <!-- TODO: Sélecteur de date -->
             </li>
             <li *ngIf="checkIn && checkOut">
-              <!-- TODO: Vérifier la disponibilité du bien entre les dates -->
               {{ available ? "Disponible" : "Indisponible" }} du
               {{ localeDateString(checkIn) }} au
               {{ localeDateString(checkOut) }}
