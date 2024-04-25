@@ -150,7 +150,10 @@
   >
     <app-location-item
       *ngFor="let location of locationsList"
+      [checkIn]="checkIn"
+      [checkOut]="checkOut"
       [location]="location"
     />
+    <p *ngIf="locationsList.length == 0">Aucune offre trouvée.</p>
   </div>
 </section>

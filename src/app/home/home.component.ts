@@ -4,7 +4,6 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common'
 import { LocationService } from '../location.service'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { Observable, catchError, throwError } from 'rxjs'
-import { OfferType } from '../../../libs/types/research'
 import { LocationType } from '../../../libs/types/location'
 
 @Component({
@@ -15,6 +14,8 @@ import { LocationType } from '../../../libs/types/location'
 })
 export class HomeComponent {
   locations: Observable<Array<LocationType>>
+  checkIn: string | undefined
+  checkOut: string | undefined
 
   constructor(private locationService: LocationService) {
     this.locations = this.locationService.getLocations()
@@ -31,44 +32,48 @@ export class HomeComponent {
   })
 
   onSubmit() {
-    // let city = this.searchForm.value.city || ''
-    // if (city == '') {
-    //   // TODO: handle error
-    //   return
-    // }
-    // let checkInStr = this.searchForm.value.checkIn || ''
-    // if (checkInStr == '') {
-    //   // TODO: handle error
-    //   return
-    // }
-    // let checkIn = new Date(checkInStr)
-    // let checkOutStr = this.searchForm.value.checkOut || ''
-    // if (checkOutStr == '') {
-    //   // TODO: handle error
-    //   return
-    // }
-    // let checkOut = new Date(checkOutStr)
-    // let maxPrice = parseInt(this.searchForm.value.maxPrice || '-1')
-    // let minRooms = parseInt(this.searchForm.value.minRooms || '1')
-    // let minBeds = parseInt(this.searchForm.value.minBeds || '1')
-    // let maxDistance = parseInt(this.searchForm.value.maxDistance || '10000')
-    // console.log(
-    //   'Search: ' +
-    //     city +
-    //     checkIn +
-    //     checkOut +
-    //     maxPrice +
-    //     minRooms +
-    //     minBeds +
-    //     maxDistance,
-    // )
-    // this.locations = this.locationService
-    //   .search(city, checkIn, checkOut, minRooms, minBeds, maxDistance)
-    //   .pipe(
-    //     catchError((e: Error) => {
-    //       // TODO: handle error
-    //       return throwError(() => e)
-    //     }),
-    //   )
+    let city = this.searchForm.value.city || ''
+    this.checkIn = this.searchForm.value.checkIn || ''
+    if (this.checkIn == '') {
+      // TODO: handle error
+      return
+    }
+    let checkIn = new Date(this.checkIn)
+    this.checkOut = this.searchForm.value.checkOut || ''
+    if (this.checkOut == '') {
+      // TODO: handle error
+      return
+    }
+    let checkOut = new Date(this.checkOut)
+    let maxPrice = !this.searchForm.value.maxPrice
+      ? undefined
+      : parseInt(this.searchForm.value.maxPrice)
+    let minRooms = !this.searchForm.value.minRooms
+      ? undefined
+      : parseInt(this.searchForm.value.minRooms)
+    let minBeds = !this.searchForm.value.minBeds
+      ? undefined
+      : parseInt(this.searchForm.value.minBeds)
+    let maxDistance = !this.searchForm.value.maxDistance
+      ? undefined
+      : parseInt(this.searchForm.value.maxDistance)
+    console.log(
+      'Search: ' +
+        city +
+        this.checkIn +
+        this.checkOut +
+        maxPrice +
+        minRooms +
+        minBeds +
+        maxDistance,
+    )
+    this.locations = this.locationService
+      .search(city, checkIn, checkOut, minRooms, minBeds, maxDistance, maxPrice)
+      .pipe(
+        catchError((e: Error) => {
+          // TODO: handle error
+          return throwError(() => e)
+        }),
+      )
   }
 }

@@ -11,8 +11,14 @@ import { NgIf } from '@angular/common'
 })
 export class OfferItemComponent {
   @Input() location!: LocationType
+  @Input() checkIn: string | undefined
+  @Input() checkOut: string | undefined
 
   sumBeds(bedrooms: Array<BedroomType>): number {
     return bedrooms.reduce((acc, val) => acc + val.total_capacity, 0)
+  }
+
+  localeDateString(date: string) {
+    return new Date(date).toLocaleDateString()
   }
 }
