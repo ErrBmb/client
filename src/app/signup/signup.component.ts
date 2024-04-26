@@ -4,16 +4,25 @@ import { Router, RouterLink } from '@angular/router'
 import { AuthService } from '../auth.service'
 import { FeatureComponent, NgxMapboxGLModule } from 'ngx-mapbox-gl'
 import { MapMouseEvent } from 'mapbox-gl'
+import { ErrorToastComponent } from '../error-toast/error-toast.component'
+import { NgIf } from '@angular/common'
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, NgxMapboxGLModule],
+  imports: [
+    NgIf,
+    RouterLink,
+    ReactiveFormsModule,
+    NgxMapboxGLModule,
+    ErrorToastComponent,
+  ],
   templateUrl: './signup.component.html',
 })
 export class SignupComponent {
   @ViewChild('markerFeature', { static: false })
   markerFeature?: FeatureComponent
+  error: string | undefined
 
   marker: GeoJSON.Point = {
     type: 'Point',
@@ -42,6 +51,23 @@ export class SignupComponent {
     let email = this.userForm.value.email || ''
     let password = this.userForm.value.password || ''
     let location = this.marker
+    if (
+      !(
+        lastName &&
+        firstName &&
+        birthDate &&
+        phone &&
+        email &&
+        password &&
+        location
+      )
+    ) {
+      this.error = 'Veuillez remplir tous les champs.'
+      setInterval(() => {
+        this.error = ''
+      }, 2000)
+      return
+    }
     this.authService
       .signup(lastName, firstName, birthDate, phone, email, password, location)
       .subscribe({
@@ -49,7 +75,10 @@ export class SignupComponent {
           this.router.navigateByUrl('/')
         },
         error: (e: Error) => {
-          // TODO: handle error
+          this.error = 'Impossible de créer le compte.'
+          setInterval(() => {
+            this.error = ''
+          }, 2000)
         },
       })
   }

@@ -157,3 +157,5 @@
     <p *ngIf="locationsList.length == 0">Aucune offre trouvée.</p>
   </div>
 </section>
+
+<app-error-toast *ngIf="error" [message]="error" />
