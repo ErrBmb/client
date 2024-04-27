@@ -67,6 +67,7 @@
               {{ sumBeds(location.bedrooms) }}
               couchage{{ sumBeds(location.bedrooms) > 1 ? "s" : "" }}
             </li>
+            <li>À {{ location.distance }}m du centre ville</li>
             <li *ngIf="!(checkIn || checkOut)">
               Sélectionnez les dates pour votre séjour
             </li>
