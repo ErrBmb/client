@@ -8,7 +8,12 @@ You will need to pull the GIT submodule [Errbmb/types](https://github.com/ErrBmb
 
 ## Installation
 
-Run `npm i` to install all dependencies. You will need to patch the `ngx-mapbox-gl` dependency by commenting the following lines:
+This step is now done automatically using `patch-package` with npm.
+See the doc for `patch-package` and `/patches/ngl-mapbox-gl+10.0.0.patch`
+
+~~Run `npm i` to install all dependencies.~~
+
+~~You will need to patch the `ngx-mapbox-gl` dependency by commenting the following lines:~~
 
 ```ts
 // File: /node_modules/ngx-mapbox-gl/fesm2022/ngx-mapbox-gl.mjs
