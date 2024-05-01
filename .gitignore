@@ -37,7 +37,6 @@ pnpm-lock.yaml
 /libpeerconnection.log
 testem.log
 /typings
-/src/environments
 
 # System files
 .DS_Store
